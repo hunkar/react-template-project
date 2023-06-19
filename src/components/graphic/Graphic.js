@@ -6,10 +6,11 @@ import propTypes from "prop-types";
 
 const GraphicComponentContainer = styled.div`
   padding: 30px;
-  width: 750px;
+  width: 500px;
   max-width: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
 `;
 const GraphicComponentTitle = styled.div`
   width: 100%;
