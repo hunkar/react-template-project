@@ -55,7 +55,10 @@ function UserLayout() {
     <>
       <Title>Users</Title>
       <ButtonContainer>
-        <AddButton onClick={() => dispatch(showUserAddModal())}>
+        <AddButton
+          role="button-new-user"
+          onClick={() => dispatch(showUserAddModal())}
+        >
           New User
         </AddButton>
       </ButtonContainer>

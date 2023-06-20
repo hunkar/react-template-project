@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Graphic from "../components/graphic/Graphic";
 
 const DashboardContainer = styled.div`
   width: 100vw;
@@ -15,6 +16,7 @@ function Dashboard() {
   return (
     <DashboardContainer>
       <span>Welcome to template application.</span>
+      <Graphic title={"Test Graph"} data={[{ date: new Date(), value: 1 }]} />
     </DashboardContainer>
   );
 }

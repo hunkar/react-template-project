@@ -74,10 +74,14 @@ function UserList() {
     dispatch(updateActiveUser({ [field]: e.target.value }));
   };
 
+  const capitalizeFirstLetter = (string) =>
+    string.charAt(0).toUpperCase() + string.slice(1);
+
   return (
     <Modal>
       <ModalContentContainer>
         <CloseButton
+          role="button-close-modal"
           onClick={() => {
             dispatch(closeUserAddModal());
           }}
@@ -85,38 +89,26 @@ function UserList() {
           X
         </CloseButton>
         <Form>
-          <FormItem>
-            <label>Name: </label>
-            <input
-              readOnly={isReadonly}
-              type="text"
-              value={activeUser[NAME]}
-              onChange={_onChange(NAME)}
-            />
-          </FormItem>
-          <FormItem>
-            <label>Surname: </label>
-            <input
-              readOnly={isReadonly}
-              type="text"
-              value={activeUser[SURNAME]}
-              onChange={_onChange(SURNAME)}
-            />
-          </FormItem>
-          <FormItem>
-            <label>Department: </label>
-            <input
-              readOnly={isReadonly}
-              type="text"
-              value={activeUser[DEPARTMENT]}
-              onChange={_onChange(DEPARTMENT)}
-            />
-          </FormItem>
+          {[NAME, SURNAME, DEPARTMENT].map((field) => {
+            return (
+              <FormItem key={field}>
+                <label>{capitalizeFirstLetter(field)}: </label>
+                <input
+                  readOnly={isReadonly}
+                  type="text"
+                  role={`input-${field}`}
+                  value={activeUser[field]}
+                  onChange={_onChange(field)}
+                />
+              </FormItem>
+            );
+          })}
           <FormItem>
             <label>Skills: </label>
             <input
               readOnly={isReadonly}
               type="text"
+              role={"input-skills"}
               value={activeUser[SKILLS]}
               onChange={(e) => {
                 dispatch(
@@ -128,6 +120,7 @@ function UserList() {
 
           {!isReadonly && (
             <SubmitButton
+              role={"submit-user"}
               onClick={() => {
                 dispatch(saveActiveUser());
               }}

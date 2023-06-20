@@ -41,7 +41,7 @@ const BodyCell = styled.td`
   text-align: left;
 `;
 
-const ButtonContainer = styled.td`
+const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
 `;
@@ -78,50 +78,57 @@ function UserList() {
   return (
     <UserTable>
       <thead>
-        <HeaderCell>Id</HeaderCell>
-        <HeaderCell>Name</HeaderCell>
-        <HeaderCell>Surname</HeaderCell>
-        <HeaderCell>Department</HeaderCell>
-        <HeaderCell>Skills</HeaderCell>
-        <HeaderCell></HeaderCell>
+        <tr>
+          <HeaderCell>Id</HeaderCell>
+          <HeaderCell>Name</HeaderCell>
+          <HeaderCell>Surname</HeaderCell>
+          <HeaderCell>Department</HeaderCell>
+          <HeaderCell>Skills</HeaderCell>
+          <HeaderCell></HeaderCell>
+        </tr>
       </thead>
       <tbody>
-        {(users || []).map(({ id, name, surname, department, skills = [] }) => {
-          return (
-            <UserRow>
-              <BodyCell>{id}</BodyCell>
-              <BodyCell>{name}</BodyCell>
-              <BodyCell>{surname}</BodyCell>
-              <BodyCell>{department}</BodyCell>
-              <BodyCell>{skills.join(",")}</BodyCell>
-              <BodyCell>
-                <ButtonContainer>
-                  <DetailButton
-                    onClick={() => {
-                      dispatch(showUserDetailModal(id));
-                    }}
-                  >
-                    Detail
-                  </DetailButton>
-                  <UpdateButton
-                    onClick={() => {
-                      dispatch(showUserUpdateModal(id));
-                    }}
-                  >
-                    Update
-                  </UpdateButton>
-                  <DeleteButton
-                    onClick={() => {
-                      dispatch(deleteUser(id));
-                    }}
-                  >
-                    Delete
-                  </DeleteButton>
-                </ButtonContainer>
-              </BodyCell>
-            </UserRow>
-          );
-        })}
+        {(users || []).map(
+          ({ id, name, surname, department, skills = [] }, index) => {
+            return (
+              <UserRow key={`user-${index}-${id}`}>
+                <BodyCell>{id}</BodyCell>
+                <BodyCell>{name}</BodyCell>
+                <BodyCell>{surname}</BodyCell>
+                <BodyCell>{department}</BodyCell>
+                <BodyCell>{skills.join(",")}</BodyCell>
+                <BodyCell>
+                  <ButtonContainer>
+                    <DetailButton
+                      role="detail-user"
+                      onClick={() => {
+                        dispatch(showUserDetailModal(id));
+                      }}
+                    >
+                      Detail
+                    </DetailButton>
+                    <UpdateButton
+                      role="update-user"
+                      onClick={() => {
+                        dispatch(showUserUpdateModal(id));
+                      }}
+                    >
+                      Update
+                    </UpdateButton>
+                    <DeleteButton
+                      role="delete-user"
+                      onClick={() => {
+                        dispatch(deleteUser(id));
+                      }}
+                    >
+                      Delete
+                    </DeleteButton>
+                  </ButtonContainer>
+                </BodyCell>
+              </UserRow>
+            );
+          }
+        )}
       </tbody>
     </UserTable>
   );
