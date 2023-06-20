@@ -1,4 +1,4 @@
-import { postRequest } from "../utils/connection";
+import { postRequest } from "../connection";
 
 jest.mock("axios", () => ({
   default: {
